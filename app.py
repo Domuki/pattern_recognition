@@ -50,6 +50,7 @@ def index():
 @app.route("/snapshot")
 def snapshot():
   currDate = datetime.today().strftime('%Y-%m-%d')
+  setDate = '2021-04-01'
   firstDayOfYear = datetime.now().date().replace(month=1, day=1).strftime('%Y-%m-%d')   
   print(firstDayOfYear)
   with open('datasets/companies.csv') as f:
@@ -57,7 +58,7 @@ def snapshot():
       for company in companies:
         symbol =company.split(',')[0]
         print(symbol)
-        df = yf.download(symbol, start="{}".format(firstDayOfYear), end="{}".format(currDate))
+        df = yf.download(symbol, start="{}".format(firstDayOfYear), end="{}".format(setDate))
         df.to_csv('datasets/daily/{}.csv'.format(symbol))
 
   return {
